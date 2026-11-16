@@ -21,7 +21,7 @@ jobs:
 
       - name: Extract Android Project
         run: |
-          unzip -q auto-paymemt-obitomart.zip
+          unzip -q OBITO-MART-ANDROID-BYETHOST-COOKIE-BOOTSTRAP-v1.2.1.zip
           cd ObitoMartAutoPayment
           chmod +x gradlew
 
