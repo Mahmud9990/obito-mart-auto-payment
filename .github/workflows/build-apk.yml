@@ -1,0 +1,37 @@
+name: Build OBITO MART APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Extract Android Project
+        run: |
+          unzip -q OBITO-MART-ANDROID-SOURCE.zip
+          cd ObitoMartAutoPayment
+          chmod +x gradlew
+
+      - name: Build APK
+        run: |
+          cd ObitoMartAutoPayment
+          ./gradlew assembleRelease --no-daemon
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: OBITO-MART-AUTO-PAYMENT-APK
+          path: ObitoMartAutoPayment/app/build/outputs/apk/release/app-release.apk
